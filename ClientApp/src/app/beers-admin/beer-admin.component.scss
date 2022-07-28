@@ -1,0 +1,102 @@
+ .mat-paginator, mat-option {
+  background-color: #0c003d;
+  color: white;
+  font-size: 2.3vmin;
+}
+/*@media only screen and (min-width: 1000px) {
+  .img {
+    width: 100px;
+    height: 100px;
+  }
+}*/
+.right{
+  position: fixed;
+  right: 7px;
+  top: 50px;
+
+}
+
+
+:host ::ng-deep .mat-radio-container {
+  height: 10px;
+  width: 10px;
+}
+
+:host ::ng-deep .mat-radio-outer-circle {
+  height: 10px;
+  width: 10px;
+}
+
+:host ::ng-deep .mat-radio-inner-circle {
+  height: 10px;
+  width: 10px;
+}
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  /* margin: 15px 0;*/
+  font-size: 1vmax;
+}
+::ng-deep .mat-select {
+  font-size: 0.9vmax;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: blue !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: blue !important; /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: blue !important; /*outer ring color change*/
+}
+.fixed{
+    position:fixed;
+}
+.layer {
+ 
+  position: fixed;
+  top: 50px;
+ 
+}
+
+::ng-deep .selection {
+  .mat-select-value {
+    font-size: 2vmin;
+    color: white !important;
+  }
+}
+  /*::ng-deep .mat-select-value, mat-select-arrow {
+  font-size: 2vmin;
+  color:white;
+}*/
+  .md-table-pagination md-select:not([disabled]):focus .md-select-value {
+    color: white;
+  }
+
+  ::ng-deep .mat-option-text {
+    font-size: 1.5em;
+  }
+
+  .h3 {
+    font-size: 1vmax;
+  }
+
+  .mat-sidenav-content {
+    background-color: #0c003d;
+    color: white;
+    font-size: 1.5vmax;
+  }
+
+.mat-sidenav {
+  @media screen and (max-width: 900px) {
+    width: 40%;
+  }
+
+  width: 30%;
+}
+
+  .button {
+    width: 10%;
+  }

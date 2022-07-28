@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Классификация пива по BJCP</h1>
+  <div class="container-fluid ">
+    <div class="row">
+      <div class="col-md-auto border">
+        <h3 class="border-bottom">Категории</h3>
+        <mat-action-list *ngFor="let category of categories index as i" (click)="getStyles(category.categoryName)">
+
+          <p apptextColor (click)="getDescription(true,category.categoryId)">  {{category.categoryName}} </p>
+          <mat-divider></mat-divider>
+
+        </mat-action-list>
+      </div>
+      <div class="col-md-auto border">
+        <h3 class="border-bottom">Стили</h3>
+        <mat-action-list *ngFor="let style of styles">
+
+          <p apptextColor (click)="getDescription(false,style.styleId)">  {{style.styleName}} </p>
+          <mat-divider></mat-divider>
+
+        </mat-action-list>
+      </div>
+      <div class="col border">
+        <h3 class="border-bottom">Описание</h3>
+        <pre class="text-content text-justify" [innerHTML]="description">
+
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="container">
+  <h1>Страны</h1>
+
+
+  <p *ngIf="!countries"><em>Loading...</em></p>
+  <div class="commands text-right" *ngIf="countries">
+    <button type="submit"
+            [routerLink]="['/country']"
+            class="btn btn-success">
+      Добавить новую страну
+    </button>
+  </div>
+  <mat-form-field [hidden]="!countries">
+    <input matInput (keyup)="loadData($event.target.value)"
+           placeholder="Filter by name (or part of it)...">
+  </mat-form-field>
+  <table mat-table [dataSource]="countries" class="mat-elevation-z8"
+         [hidden]="!countries"
+         matSort (matSortChange)="loadData()"
+         matSortActive="{{defaultSortColumn}}"
+         matSortDirection="{{defaultSortOrder}}">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let country"> {{country.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let country">
+        <a style="color:white" [routerLink]="['/country', country.id]">{{country.name}}</a>
+      </td>
+      <ng-container matColumnDef="beerCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество пива</th>
+        <td mat-cell *matCellDef="let country"> {{country.beerCount}} </td>
+      </ng-container>
+      <ng-container matColumnDef="factoryCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество производителей</th>
+        <td mat-cell *matCellDef="let country"> {{country.factoryCount}} </td>
+      </ng-container>
+    </ng-container>
+    <ng-container matColumnDef="factoryList">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Производители
+      </th>
+      <td mat-cell *matCellDef="let country">
+        <mat-accordion multi>
+          <!-- #enddocregion multi -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Производители
+              </mat-panel-title>
+              <mat-panel-description>
+                посмотреть
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <p *ngFor="let factory of country.factories">{{factory.name}}</p>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="row justify-content-center" >
+    <mat-paginator [hidden]="!countries"
+                   (page)="getData($event)"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 20, 50]"
+                   showFirstLastButtons></mat-paginator>
+</div>
+  </div>

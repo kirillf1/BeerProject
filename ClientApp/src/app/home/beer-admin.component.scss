@@ -1,0 +1,59 @@
+ .mat-paginator, mat-option {
+  background-color: #0c003d;
+  color: white;
+  font-size: 2.3vmin;
+}
+@media only screen and (min-width: 1000px) {
+  .img {
+    width: 100px;
+    height: 100px;
+  }
+}
+.right{
+  position: fixed;
+  right: 7px;
+  top: 50px;
+
+}
+.layer {
+ 
+  position: fixed;
+  top: 50px;
+ 
+}
+
+::ng-deep .selection {
+  .mat-select-value {
+    font-size: 2vmin;
+    color: white !important;
+  }
+}
+  /*::ng-deep .mat-select-value, mat-select-arrow {
+  font-size: 2vmin;
+  color:white;
+}*/
+  .md-table-pagination md-select:not([disabled]):focus .md-select-value {
+    color: white;
+  }
+
+  ::ng-deep .mat-option-text {
+    font-size: 1.5em;
+  }
+
+  .h3 {
+    font-size: 1vmax;
+  }
+
+  .mat-sidenav-content {
+    background-color: #0c003d;
+    color: white;
+    font-size: 1.5vmax;
+  }
+  
+  .mat-sidenav {
+    width: 30%;
+  }
+
+  .button {
+    width: 10%;
+  }

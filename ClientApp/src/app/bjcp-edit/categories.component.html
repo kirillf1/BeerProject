@@ -1,0 +1,71 @@
+<div class="container">
+  <h1>Редактор BJCP</h1>
+
+
+  <p *ngIf="!bjcps"><em>Loading...</em></p>
+  <div class="commands text-right" *ngIf="bjcps">
+    <button type="submit"
+            [routerLink]="['/style']"
+            class="btn btn-success">
+      Добавить новый стиль
+    </button>
+    <button type="submit"
+            [routerLink]="['/category']"
+            class="btn btn-primary">
+      Добавить новую категорию
+    </button>
+  </div>
+  
+  <table mat-table [dataSource]="bjcps" class="mat-elevation-z8"
+         [hidden]="!bjcps"
+         matSort (matSortChange)="loadData()">
+    <!-- Id Column -->
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let bjcp"> {{bjcp.category.categoryId}}  </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Название категории">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Название категории</th>
+      <td mat-cell *matCellDef="let  bjcp">
+        <a style="color:white" [routerLink]="['/category', bjcp.category.categoryId]">{{ bjcp.category.categoryName}}</a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Количество пива">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество пива</th>
+      <td mat-cell *matCellDef="let bjcp"> {{bjcp.category.beerCount}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Стили">
+      <th mat-header-cell *matHeaderCellDef>
+        Стили
+      </th>
+      <td mat-cell *matCellDef="let bjcp">
+        <mat-accordion multi>
+          <!-- #enddocregion multi -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              
+              <mat-panel-description>
+                посмотреть
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <a style="color:white" [routerLink]="['/style', style.styleId]" *ngFor="let style of bjcp.styles"><p>{{style.styleName}}</p></a>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="row justify-content-center" >
+    <mat-paginator [hidden]="!bjcps"
+                  (page)="getData($event)"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 20, 50]"
+                   showFirstLastButtons></mat-paginator>
+</div>
+  </div>

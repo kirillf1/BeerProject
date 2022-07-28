@@ -1,0 +1,76 @@
+
+<header  >
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3"
+  style="    background-color: #d7adf7;" >
+    <div class="container" >
+      <a class="navbar-brand" [routerLink]="['/']">BeerProject</a>
+      <span style="color:black" *ngIf="userFromApi"> Добро пожаловать, {{user.username}}</span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/bjcp']">BJCP</a>
+          </li>
+
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" *ngIf="!userFromApi" [routerLink]="['/login']">Войти</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" *ngIf="!userFromApi" [routerLink]="['/register']">Регистрация</a>
+          </li>
+
+        </ul>
+        <button style="color:black;" *ngIf="userFromApi" (click)="logout()" mat-button>
+
+          Выйти
+        </button>
+        <div *ngIf="isAdmin">
+          <button style="color:black;" mat-button [matMenuTriggerFor]="beforeMenu">
+
+            Admin
+          </button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <ul class="navbar-nav flex-grow">
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-light " [routerLink]="['/beeradmin']">Редактировать пиво</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-light" [routerLink]="['/colors']">Редактировать цвета</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-light" [routerLink]="['/factories']">Редактировать производителей</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-light" [routerLink]="['/countries']">Редактировать страны</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-light" [routerLink]="['/categories']">Редактировать стили</a>
+              </li>
+            </ul>
+          </mat-menu>
+
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

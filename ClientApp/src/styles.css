@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+/* Provide sufficient contrast against white background */
+
+
+body {
+  background-color: #0c003d;
+  color: white;
+}
+a {
+  color: #0366d6;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #110057 inset;
+  -webkit-text-fill-color: white;
+}
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}

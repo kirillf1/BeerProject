@@ -1,0 +1,158 @@
+
+<form [formGroup]="form"  >
+  <mat-accordion multi="true">
+    <h4 style="padding-top:10px;font-size:1.3vmax;text-align:center">Фильтр</h4>
+    <div class="text-center" style="width:100%;padding-top:20px;">
+      <mat-form-field style="padding-left:5%;padding-right:10%">
+        <mat-label>Поиск по имени</mat-label>
+        <input matInput formControlName="name" placeholder="введите имя" style="font-size: 1vmax;">
+      </mat-form-field>
+    </div>
+    <mat-expansion-panel (opened)="opened('Category')">
+
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Категории и стили
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+      <p *ngIf="!Categories"><em>Загрузка</em></p>
+      <mat-form-field *ngIf="Categories" appearance="outline">
+
+        <mat-label>Категории</mat-label>
+
+        <mat-select formControlName="categoryId" (closed)="changeStyle()" multiple>
+          <mat-option *ngFor="let category of Categories" [value]="category.categoryId">{{category.categoryName}}</mat-option>
+        </mat-select>
+
+      </mat-form-field>
+      <mat-form-field  appearance="outline">
+
+        <mat-label>Стили</mat-label>
+        <mat-select formControlName="styleId" multiple>
+          <mat-option *ngFor="let style of Styles" [value]="style.styleId">{{style.styleName}}</mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="opened('Country')">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Страны и производитель
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+     
+      <mat-form-field *ngIf="Countries" appearance="outline">
+
+        <mat-label>Страны</mat-label>
+
+        <mat-select formControlName="countryId" multiple>
+          <mat-option *ngFor="let country of Countries" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+
+      </mat-form-field>
+      <mat-form-field *ngIf="Factories" appearance="outline">
+
+        <mat-label>Производитель</mat-label>
+
+        <mat-select formControlName="factoryId" multiple>
+          <mat-option *ngFor="let factory of Factories" [value]="factory.id">{{factory.name}}</mat-option>
+        </mat-select>
+
+      </mat-form-field>
+      <mat-form-field *ngIf="Colors" appearance="outline">
+
+        <mat-label>Цвет</mat-label>
+
+        <mat-select formControlName="colorId" multiple>
+          <mat-option *ngFor="let color of Colors" [value]="color.id">{{color.name}}</mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="opened('Price')">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Цены и Алкоголь
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+
+        <div class="custom-slider" style="padding-top: 5vh;">
+
+          <ngx-slider [(value)]="form.controls['minPrice'].value" [(highValue)]="form.controls['maxPrice'].value" [options]="buildSliderOpt('price')"></ngx-slider>
+        </div>
+
+
+
+        <div class="custom-slider" style="padding-top:5vh;">
+          <ngx-slider [(value)]="form.controls['minAlcohol'].value" [(highValue)]="form.controls['maxAlcohol'].value" [options]="buildSliderOpt('alcohol')"></ngx-slider>
+        </div>
+      </ng-template>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Фильтрация и пастерилизация
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <mat-label>Фильтрация</mat-label>
+        <mat-radio-group class="radio-group" formControlName="filtration">
+          <mat-radio-button [value]="''">
+            Любая фильтрация
+          </mat-radio-button>
+          <mat-radio-button [value]="true">
+            Фильтрованное
+          </mat-radio-button>
+          <mat-radio-button [value]="false">
+            Нефильтрованное
+          </mat-radio-button>
+        </mat-radio-group>
+        <mat-label>Покупка</mat-label>
+        <mat-radio-group class="radio-group" formControlName="isLocalShop">
+          <mat-radio-button [value]="''">
+            Купить везде
+          </mat-radio-button>
+          <mat-radio-button [value]="true">
+            В местных магазинах РФ
+          </mat-radio-button>
+          <mat-radio-button [value]="false">
+            Под заказ
+          </mat-radio-button>
+        </mat-radio-group>
+        <mat-radio-group class="radio-group" formControlName="pasterisation">
+          <mat-label>Пастеризация</mat-label>
+          <mat-radio-button [value]="''">
+            Любая пастеризация
+          </mat-radio-button>
+          <mat-radio-button [value]="true">
+            Пастеризованное
+          </mat-radio-button>
+          <mat-radio-button [value]="false">
+            Непастеризованное
+          </mat-radio-button>
+        </mat-radio-group>
+      </ng-template>
+    </mat-expansion-panel>
+    <div style="padding-top:10px">
+
+      <div class="text-left">
+        <button mat-icon-button  (click)="refreshForm()">
+
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+      <div class="text-right">
+        <button mat-icon-button  (click)="onSubmit()">
+
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-accordion>
+</form>
+

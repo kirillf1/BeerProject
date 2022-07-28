@@ -1,0 +1,124 @@
+<div class="container" >
+
+  <h1 style="font-size:1vmax">{{title}}</h1>
+  <button mat-fab (click)="deleteBeer()" *ngIf="id" style="background-color: orange;">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <p *ngIf="this.id && !beer"><em>Loading...</em></p>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="beer">
+    <div class="container-fluid ">
+      <div class="row">
+        <div class="col" style="width:20%;padding-top:20px">
+          <figure class="figure">
+            <img [src]="form.controls['photoId'].value"  class="figure-img rounded-circle img-fluid float-left " />
+            <figcaption class="figure-caption">
+              <!--<label style="color:white">
+                Сслыка на фото
+              </label>-->
+
+            </figcaption>
+          </figure>
+          <mat-form-field style="color:white;width:100%">
+            <mat-label>Сслыка на фото</mat-label>
+            <input matInput type="url" formControlName="photoId" placeholder="введите адрес фото" style="font-size:1vmax">
+            <button mat-button *ngIf="form.controls['photoId'].value" matSuffix mat-icon-button aria-label="Clear" (click)="form.controls['photoId'].setValue('')">
+              <mat-icon>close</mat-icon>
+              </button>
+          </mat-form-field>
+        </div>
+        <div class="col-8" style="width:100%;padding-top:20px">
+          <mat-form-field style="width:100%;">
+            <mat-label>Имя</mat-label>
+            <input matInput formControlName="name" placeholder="введите название пива">
+          </mat-form-field>
+         
+
+            <!--<mat-form-field style="width: 45%;padding-right: 30px">
+              <mat-label>Страна</mat-label>
+              <input matInput formControlName="country" placeholder="введите страну" [value]="form.controls['country'].value" (input)="changeProp('country',country)">
+            </mat-form-field>
+            <strong class="def-font">или</strong>-->
+          <mat-form-field appearance="outline" style="width: 50%; padding-right: 30px" *ngIf="Countries">
+            <mat-label>Выбрать страну</mat-label>
+            <mat-select #country formControlName="countryId">
+              <mat-option *ngFor="let country of Countries" [value]="country.id">{{country.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+
+            <mat-form-field  appearance="outline" style="width:50%;">
+              <mat-label>Выбрать цвет</mat-label>
+              <mat-select #color formControlName="colorId">
+                <mat-option *ngFor="let color of Colors" [value]="color.id">{{color.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+         
+       
+            <!--<mat-form-field style="width: 45%">
+              <mat-label>Производитель</mat-label>
+              <input matInput formControlName="factory" placeholder="введите производителя" [value]="form.controls['factory'].value" (input)="changeProp('factory',factory)">
+            </mat-form-field>
+            <strong class="def-font">или</strong>-->
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Выбрать производителя</mat-label>
+              <mat-select #factory formControlName="factoryId">
+                <mat-option *ngFor="let factory of Factories" [value]="factory.id">{{factory.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+          <mat-form-field appearance="outline" style="    width: 50%;
+    padding-right: 30px">
+            <mat-label>Категории</mat-label>
+            <mat-select #category formControlName="categoryId" (closed)="changeStyle()">
+              <mat-option *ngFor="let category of categories" [value]="category.categoryId">{{category.categoryName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 50%;">
+            <mat-label>Стили</mat-label>
+            <mat-select formControlName="styleId" (closed)="changeCategory()">
+              <mat-option *ngFor="let style of styles" [value]="style.styleId">
+                {{style.styleName}}
+                
+              </mat-option>
+             
+            </mat-select>
+          </mat-form-field>
+
+          <mat-checkbox style="padding-right:10%" color="primary" formControlName="filtration">
+            Фильтрация
+          </mat-checkbox>
+          <mat-checkbox style="padding-right:10%" color="primary" formControlName="pasterisation">
+            Пастерилизация
+          </mat-checkbox>
+          <mat-checkbox color="primary" formControlName="isLocalShop">
+            В местном магазине
+          </mat-checkbox>
+          <div style="padding-bottom:10px" class="custom-slider">
+            <strong>Алкоголь</strong>
+            <ngx-slider [(value)]="form.controls['alcohol'].value" [options]="buildSliderOpt('alcohol')"></ngx-slider>
+            <strong>Цена</strong>
+            <ngx-slider [(value)]="form.controls['price'].value" [options]="buildSliderOpt('price')"></ngx-slider>
+            <strong>Горечь</strong>
+            <ngx-slider [(value)]="form.controls['bitterness'].value" [options]="buildSliderOpt('bitterness')"></ngx-slider>
+            <strong>Рейтинг</strong>
+            <ngx-slider [(value)]="form.controls['rating'].value" [options]="buildSliderOpt('rating')"></ngx-slider>
+            <strong>Экстрактивность сусла</strong>
+            <ngx-slider [(value)]="form.controls['initialWort'].value" [options]="buildSliderOpt('initialWort')"></ngx-slider>
+          </div>
+          <mat-form-field style="padding-bottom:10px">
+            <mat-label>Вкус</mat-label>
+            <input matInput type="text" formControlName="taste" placeholder="введите вкус">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Описание</mat-label>
+            <!--<input matInput type="text" formControlName="description" placeholder="введите адрес фото" style="width:100%;height:300px">-->
+            <textarea  matInput formControlName="description" style="width:100%;height:150px;background-color:gray;"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+
+  </form>
+
+</div>

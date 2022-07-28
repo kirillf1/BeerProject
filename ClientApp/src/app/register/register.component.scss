@@ -1,0 +1,18 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #0c003d inset !important;
+}
+.mat-form-field{
+    color:white;
+    width:100%
+
+}
+:host ::ng-deep .mat-form-field-underline {
+  background-color: black !important;
+}
+
+:host ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: black !important;
+  }

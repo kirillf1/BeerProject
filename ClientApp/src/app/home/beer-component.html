@@ -1,0 +1,65 @@
+<div class="container" *ngIf="beer">
+
+  <h1 style="font-size:2vmax;text-align:center">{{beer.name}}</h1>
+  <div class="container-fluid" style="font-size: 1.3vmax">
+    <div class="row">
+      <div class="col" style="width:20%;padding-top:20px">
+        <figure class="figure">
+          <img [src]="beer.photoId" class="figure-img rounded-circle img-fluid float-left " />
+          <figcaption class="figure-caption">
+
+
+          </figcaption>
+        </figure>
+
+      </div>
+      <div class="col-8" style="padding-top: 20px; font-size: 1.3vmax;">
+
+        <div class="row">
+          <div class="col">
+            <p>
+              <strong>Стиль: </strong> {{beer.style}}
+              <sup>
+                <mat-icon (click)="openDialog(beer.styleId,false)">help</mat-icon>
+              </sup>
+            </p>
+            <p><strong>Алкоголь: </strong> {{beer.alcohol}}%</p>
+            <p><strong>Коэффициент горечи: </strong> {{beer.bitterness}}</p>
+            <p><strong>Цвет: </strong> {{beer.color}}</p>
+            <p>
+              <strong>Фильтрация: </strong><b *ngIf="beer.filtration">фильтрованное </b>
+              <b *ngIf="!beer.filtration">нефильтрованное </b>
+            </p>
+          </div>
+          <div class="col">
+            <p>
+              <strong>Категория: </strong> {{beer.category}} <sup>
+                <mat-icon (click)="openDialog(beer.categoryId,true)">help</mat-icon>
+              </sup>
+            </p>
+            <p><strong>Рейтинг: </strong> {{beer.rating}}</p>
+            <p><strong>Производитель: </strong> {{beer.factory}}</p>
+            <p>Экстративность начального сусла:  {{beer.initialWort}}</p>
+            <p>
+              <strong>Пастеризация: </strong><b *ngIf="beer.pasterisation"> пастеризованное </b>
+              <b *ngIf="!beer.pasterisation">непастеризованное </b>
+            </p>
+            <p><strong>Примерная цена: </strong> {{beer.price}} рублей</p>
+          </div>
+
+        </div>
+        <!--<button style="width:20%;height:15%;font-size:1.3vmax;" *ngIf="beer.isLocalShop" mat-button class="border">
+
+          Узнать цену
+
+        </button>-->
+        <p class="text-justify"><strong>Вкус: </strong> {{beer.taste}}</p>
+
+      </div>
+    </div>
+    <div>
+      <p ><strong>Описание: </strong></p> <pre style="color:white" *ngIf="beer.description!=''">{{beer.description}}</pre>
+     <p *ngIf="beer.description==''" class="text-justify">Описание отсутствует</p>
+    </div>
+</div>
+</div>

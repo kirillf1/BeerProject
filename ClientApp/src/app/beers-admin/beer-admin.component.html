@@ -1,0 +1,87 @@
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" style="position:fixed">
+    <filter-form (onChanged)="getValue($event)" style="color: white;"></filter-form>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="container" style="padding-top:15px" (scroll)="onWindowScroll()">
+      <em *ngIf="!beers" class="text-center">Загрузка,ожидайте </em>
+      <div *ngIf="beers">
+
+        <div class="row border-bottom border-dark" *ngFor="let beer of beers" style="padding-bottom:2em; padding-top:2em;">
+          <div class="col">
+            <figure class="figure">
+              <img src="{{beer.photoId}}" class="figure-img  img-fluid float-left " />
+
+            </figure>
+
+          </div>
+          <div class="col-8">
+
+            <p><strong>{{beer.name}}</strong></p>
+            <p>Рейтинг: {{beer.rating}}</p>
+            <p>Страна: {{beer.country}}</p>
+            <p>Цвет: {{beer.color}}</p>
+            <p>Категория:{{beer.category}}</p>
+            <p> Стиль: {{beer.style}}</p>
+            <p>Алкоголь: {{beer.alcohol}}%, примерная цена: {{beer.price}} рублей</p>
+
+            <a *ngIf="!isUser" [routerLink]="['/beeredit', beer.beerId]">Изменить</a>
+            <a *ngIf="isUser" [routerLink]="['/beer', beer.beerId]">Подробнее</a>
+          </div>
+        </div>
+      </div>
+      <div style="width: 100%;bottom: 0;color: white;" [class.fixed]="!isEnd">
+        <div class="row justify-content-center" style=" padding-right: 30%;">
+          <mat-paginator class="selection" style="opacity:0.8" [hidden]="!beers"
+                         (page)="getData($event)"
+                         [pageSize]="10"
+                         [pageSizeOptions]="[10, 20, 50]"
+                         showFirstLastButtons>
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+
+    <button  class="layer" mat-icon-button (click)="sidenav.toggle()" style="    background-color: orange;
+    float: left;">
+      <mat-icon *ngIf="sidenav.opened">arrow_back_ios</mat-icon>
+      <mat-icon *ngIf="!sidenav.opened">arrow_forward_ios</mat-icon>
+    </button>
+
+
+    <div class="right" style="padding-top:5%">
+      <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
+
+        <mat-icon>sort</mat-icon>
+      </button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Сортировать по</mat-label>
+            <mat-select (selectionChange)="sortChanged()" [(ngModel)]="defaultSortColumn">
+              <mat-option *ngFor="let sort of sorts" [value]="sort.value">
+                {{sort.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Сортировать по</mat-label>
+            <mat-select (selectionChange)="sortChanged()" [(ngModel)]="defaultSortOrder">
+              <mat-option *ngFor="let order of orders" [value]="order.value">
+                {{order.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-menu>
+    </div>
+    <button  *ngIf="!isUser"   mat-icon-button class="right " (click)="addBeer()" style="background-color:black">
+
+      <mat-icon>add</mat-icon>
+
+    </button>
+  </mat-sidenav-content>
+ 
+</mat-sidenav-container>

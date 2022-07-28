@@ -1,0 +1,139 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "BeerProject": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "progress": true,
+            "extractCss": true,
+            "outputPath": "dist",
+            "index": "ClientApp/src/index.html",
+            "main": "ClientApp/src/main.ts",
+            "polyfills": "ClientApp/src/polyfills.ts",
+            "tsConfig": "ClientApp/src/tsconfig.app.json",
+            "assets": [ "src/assets", "src/manifest.webmanifest" ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "ClientApp/src/styles.css",
+              "ClientApp/src/Styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "ClientApp/src/environments/environment.ts",
+                  "with": "ClientApp/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "ngswConfigPath": "ClientApp/ngsw-config.json"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "BeerProject:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "BeerProject:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "BeerProject:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "ClientApp/src/test.ts",
+            "polyfills": "ClientApp/src/polyfills.ts",
+            "tsConfig": "ClientApp/src/tsconfig.spec.json",
+            "karmaConfig": "ClientApp/src/karma.conf.js",
+            "styles": [ "ClientApp/src/styles.css" ],
+            "scripts": [],
+            "assets": [ "ClientApp/src/assets", "src/manifest.webmanifest" ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [ "ClientApp/src/tsconfig.app.json", "ClientApp/src/tsconfig.spec.json" ],
+            "exclude": [ "**/node_modules/**" ]
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist-server",
+            "main": "ClientApp/src/main.ts",
+            "tsConfig": "ClientApp/src/tsconfig.server.json"
+          },
+          "configurations": {
+            "dev": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": true
+            },
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            }
+          }
+        }
+      }
+    },
+    "BeerProject-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "ClientApp/e2e/protractor.conf.js",
+            "devServerTarget": "BeerProject:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "ClientApp/e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "BeerProject"
+}

@@ -1,0 +1,55 @@
+<div class="container">
+  <h1>Производители</h1>
+
+
+  <p *ngIf="!factories"><em>Loading...</em></p>
+  <div class="commands text-right" *ngIf="factories">
+    <button type="submit"
+            [routerLink]="['/factory']"
+            class="btn btn-success">
+      Добавить нового производителя
+    </button>
+  </div>
+  <mat-form-field [hidden]="!factories">
+    <input matInput (keyup)="loadData($event.target.value)"
+           placeholder="Filter by name (or part of it)...">
+  </mat-form-field>
+  <table mat-table [dataSource]="factories" class="mat-elevation-z8"
+         [hidden]="!factories"
+         matSort (matSortChange)="loadData()"
+         matSortActive="{{defaultSortColumn}}"
+         matSortDirection="{{defaultSortOrder}}">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let factory"> {{factory.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let factory">
+        <a style="color:white" [routerLink]="['/factory', factory.id]">{{factory.name}}</a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef>
+        Страна
+      </th>
+      <td mat-cell *matCellDef="let factory">{{factory.country.name}}</td>
+      <ng-container matColumnDef="beerCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Количество пива</th>
+        <td mat-cell *matCellDef="let factory"> {{factory.beerCount}} </td>
+      </ng-container>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div class="row justify-content-center" >
+    <mat-paginator [hidden]="!factories"
+                  (page)="getData($event)"
+                   [pageSize]="20"
+                   [pageSizeOptions]="[10, 20, 50]"
+                   showFirstLastButtons></mat-paginator>
+</div>
+  </div>
